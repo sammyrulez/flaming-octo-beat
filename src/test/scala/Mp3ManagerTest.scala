@@ -24,4 +24,12 @@ class Mp3ManagerTest extends FunSuite with BeforeAndAfter {
 
   }
 
+  test("A tagged mp3 should contain tags") {
+    val mp3Fixture = Mp3Manager.loadFile(this.getClass.getResource("/fixture.mp3").getPath)
+    val info = Mp3Manager.extractInfo(mp3Fixture)
+    assert(info.contains("Title"))
+    assert(info.contains("Artist"))
+    assert(info("Title") == "Word Up")
+  }
+
 }

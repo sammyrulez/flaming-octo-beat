@@ -42,7 +42,7 @@ object Mp3Manager {
 
   def extractInfo(mp3file : Mp3File):Map[String,String] = {
 
-    Map("Bitrate: " ->  mp3file.getBitrate.toString)
+    id3v2TagInfo(mp3file) //+ ("bitrate" -> mp3file.getBitrate)
 
   }
 
