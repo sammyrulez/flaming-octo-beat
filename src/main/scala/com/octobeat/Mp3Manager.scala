@@ -31,4 +31,19 @@ object Mp3Manager {
      _removeTags(mp3file)
   }
 
+  val id3v1TagInfo : PartialFunction[Mp3File, Map[String,String]] = {
+    case mp3file: Mp3File if mp3file.hasId3v1Tag => Map("Title" -> mp3file.getId3v1Tag.getTitle ,"Artist" -> mp3file.getId3v1Tag.getArtist )
+  }
+  val id3v2TagInfo : PartialFunction[Mp3File, Map[String,String]] = {
+    case mp3file: Mp3File if mp3file.hasId3v2Tag => Map("Title" -> mp3file.getId3v2Tag.getTitle ,"Artist" -> mp3file.getId3v2Tag.getArtist )
+  }
+
+  val id3TagInfo = id3v1TagInfo orElse id3v2TagInfo orElse Map()
+
+  def extractInfo(mp3file : Mp3File):Map[String,String] = {
+
+    Map("Bitrate: " ->  mp3file.getBitrate.toString)
+
+  }
+
 }
